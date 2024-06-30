@@ -3,6 +3,7 @@
 module: 0-pascal_triangle
 """
 
+
 def pascal_triangle(n):
     """
     Generates and returns a Pascal's triangle of height in the form of a
@@ -26,7 +27,6 @@ def pascal_triangle(n):
             else:
                 b = 0
             row.append(a + b)
-            
         triangle.append(row)
-    
+
     return triangle
