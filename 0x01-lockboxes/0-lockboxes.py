@@ -3,11 +3,12 @@
 module: 0-lockboxes
 """
 
+
 def canUnlockAll(boxes):
     """
     Checks if all the boxes in the list can be unlocked
     """
-    key_set = {0,}
+    key_set = {0, }
     open_boxes = set()
     set_is_full = False
     box_opened = True
@@ -24,4 +25,4 @@ def canUnlockAll(boxes):
     if open_boxes == set(range(len(boxes))):
         set_is_full = True
 
-    return set_is_full            
+    return set_is_full
