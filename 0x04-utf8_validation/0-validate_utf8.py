@@ -8,7 +8,6 @@ def validUTF8(data):
     """ Checks if the given data is a valid UTF-8 encoding
     """
     for num in data:
-        print(bin(num), end=', ')
         if num < 0xFF and 0x80 & num == 0:
             continue
         if num <= 0xCF and 0x20 ^ num >= 0xE0:
