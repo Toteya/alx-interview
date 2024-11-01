@@ -9,16 +9,16 @@ def validUTF8(data: List[int]) -> bool:
     """ Checks if the given data is a valid UTF-8 encoding
     """
     for num in data:
-        if num >> 7 == 0:
+        num = num & 0xFF
+        if num >> 7 == 0x00:
             continue
-        if num <= 0xDF and 0x20 ^ num >= 0xE0:
-            if ((num & 0x0F) >> 6) | 0x02 == 2:
-                continue
-        if num <= 0xEF and 0x10 ^ num >= 0xF0:
-            if ((num & 0x0F) >> 6) | 0x02 == 2:
-                continue
-        if num < 0xF7 and 0x08 ^ num >= 0xF8:
-            if ((num & 0x0F) >> 6) | 0x02 == 2:
-                continue
+        if num >> 6 == 0x02:
+            continue
+        if num >> 5 == 0x06:
+            continue
+        if num >> 4 == 0x0E:
+            continue
+        if num >> 3 == 0x1E:
+            continue
         return False
     return True
