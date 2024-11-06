@@ -26,6 +26,35 @@ class Queen:
         return 'Queen[{}][{}]'.format(self.file, self.rank)
 
 
+def main():
+    N: int
+
+    if len(sys.argv) != 2:
+        print('Usage: nqueens N')
+        exit(1)
+
+    try:
+        N = int(sys.argv[1])
+    except ValueError:
+        print('N must be a number')
+        exit(1)
+
+    if N < 4:
+        print('N must be at least 4')
+        exit(1)
+
+    rank = 0
+    solutions_set = []
+    for file in range(N):
+        solution = []
+        findSolution(Queen(file, rank), N, rank + 1, solution, solutions_set)
+
+    solutions_list = [[queen.get_pos() for queen in s] for s in solutions_set]
+
+    for s in solutions_list:
+        print(s)
+
+
 def isAttacking(q1: Queen, q2: Queen) -> bool:
     """ Returns true if the two given Queens are attacking eachother
     """
@@ -61,56 +90,22 @@ def sameDiagonalPath(q1: Queen, q2: Queen) -> bool:
     return False
 
 
-def main():
-    N: int
-
-    if len(sys.argv) != 2:
-        print('Usage: nqueens N')
-        exit(1)
-
-    try:
-        N = int(sys.argv[1])
-    except ValueError:
-        print('N must be a number')
-        exit(1)
-
-    if N < 4:
-        print('N must be at least 4')
-        exit(1)
-
-    queens = []
-    for rank in range(N):
-        row = []
-        for file in range(N):
-            row.append(Queen(file, rank))
-        queens.append(row)
-
-    solutions = []
-    # for rank in range(N):
-    for file in range(N):
-        s = findSolution(N, file, queens)
-        if s not in solutions and len(s) == N:
-            solutions.append(s)
-
-    solutions_list = [[queen.get_pos() for queen in s] for s in solutions]
-
-    for s in solutions_list:
-        print(s)
-
-
-def findSolution(N: int, row: int, queens: list) -> set:
+def findSolution(new_queen, N, rank, solution, solutions_set):
     """ Finds and return a solution if the first queen is placed on the given
     position
     """
-    solution = {queens[0][row]}
-    for rank in range(N):
-        for file in range(N):
-            new_queen = queens[rank][file]
-            if any(isAttacking(new_queen, queen) for queen in solution):
-                continue
-            solution.add(new_queen)
+    if any(isAttacking(new_queen, queen) for queen in solution):
+        return
 
-    return solution
+    solution.append(new_queen)
+
+    if (rank >= N):
+        solutions_set.append(solution.copy())
+        solution.remove(new_queen)
+        return
+
+    for file in range(N):
+        findSolution(Queen(file, rank), N, rank + 1, solution, solutions_set)
 
 
 if __name__ == '__main__':
