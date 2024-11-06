@@ -27,8 +27,6 @@ class Queen:
 
 
 def main():
-    """ Program entry point
-    """
     N: int
 
     if len(sys.argv) != 2:
@@ -45,16 +43,38 @@ def main():
         print('N must be at least 4')
         exit(1)
 
-    rank = 0
-    solutions_set = []
-    for file in range(N):
-        solution = []
-        findSolution(Queen(file, rank), N, rank + 1, solution, solutions_set)
+    queens = []
+    for rank in range(N):
+        row = []
+        for file in range(N):
+            row.append(Queen(file, rank))
+        queens.append(row)
 
-    solutions_list = [[queen.get_pos() for queen in s] for s in solutions_set]
+    solutions = []
+    for file in range(N):
+        s = findSolution(N, file, queens)
+        if s not in solutions and len(s) == N:
+            solutions.append(s)
+
+    solutions_list = [[queen.get_pos() for queen in s] for s in solutions]
 
     for s in solutions_list:
         print(s)
+
+
+def findSolution(N: int, row: int, queens: list) -> set:
+    """ Finds and return a solution if the first queen is placed on the given
+    position
+    """
+    solution = {queens[0][row]}
+    for rank in range(N):
+        for file in range(N):
+            new_queen = queens[rank][file]
+            if any(isAttacking(new_queen, queen) for queen in solution):
+                continue
+            solution.add(new_queen)
+
+    return solution
 
 
 def isAttacking(q1: Queen, q2: Queen) -> bool:
@@ -90,25 +110,6 @@ def sameDiagonalPath(q1: Queen, q2: Queen) -> bool:
     if abs(q1.file - q2.file) == abs(q1.rank - q2.rank):
         return True
     return False
-
-
-def findSolution(new_queen, N, rank, solution, solutions_set):
-    """ Finds and return a solution if the first queen is placed on the given
-    position
-    """
-    if any(isAttacking(new_queen, queen) for queen in solution):
-        return
-
-    solution.append(new_queen)
-
-    if (rank >= N):
-        solutions_set.append(solution.copy())
-        solution.remove(new_queen)
-        return
-
-    for file in range(N):
-        findSolution(Queen(file, rank), N, rank + 1, solution, solutions_set)
-
 
 if __name__ == '__main__':
     main()
