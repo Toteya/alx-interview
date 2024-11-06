@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 0-nqueens:
 Finds all possible solutions to N-Queens problem
@@ -86,11 +86,11 @@ def main():
         queens.append(row)
 
     solutions = []
-    for rank in range(N):
-        for file in range(N):
-            s = findSolution(N, file, rank, queens)
-            if s not in solutions and len(s) == N:
-                solutions.append(s)
+    # for rank in range(N):
+    for file in range(N):
+        s = findSolution(N, file, queens)
+        if s not in solutions and len(s) == N:
+            solutions.append(s)
 
     solutions_list = [[queen.get_pos() for queen in s] for s in solutions]
 
@@ -98,11 +98,11 @@ def main():
         print(s)
 
 
-def findSolution(N: int, file: int, rank: int, queens: list) -> set:
+def findSolution(N: int, row: int, queens: list) -> set:
     """ Finds and return a solution if the first queen is placed on the given
     position
     """
-    solution = {queens[rank][file]}
+    solution = {queens[0][row]}
     for rank in range(N):
         for file in range(N):
             new_queen = queens[rank][file]
