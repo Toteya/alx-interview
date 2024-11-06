@@ -103,11 +103,11 @@ def findSolution(new_queen, N, rank, solution, solutions_set):
 
     if (rank >= N):
         solutions_set.append(solution.copy())
-        solution.remove(new_queen)
         return
 
     for file in range(N):
-        findSolution(Queen(file, rank), N, rank + 1, solution, solutions_set)
+        findSolution(Queen(file, rank), N, rank + 1, solution.copy(),
+                     solutions_set)
 
 
 if __name__ == '__main__':

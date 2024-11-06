@@ -111,5 +111,6 @@ def sameDiagonalPath(q1: Queen, q2: Queen) -> bool:
         return True
     return False
 
+
 if __name__ == '__main__':
     main()
