@@ -9,8 +9,6 @@ import sys
 class Queen:
     """ A queen chess piece
     """
-    file: int
-    rank: int
 
     def __init__(self, file: int, rank: int):
         """Initialise the Queen instance"""
@@ -29,7 +27,6 @@ class Queen:
 def main():
     """ Program entry point
     """
-    N: int
 
     if len(sys.argv) != 2:
         print('Usage: nqueens N')
@@ -92,7 +89,7 @@ def sameDiagonalPath(q1: Queen, q2: Queen) -> bool:
     return False
 
 
-def findSolution(new_queen, N, rank, solution, solutions_set):
+def findSolution(new_queen, N, rank, solution, solutions_set) -> None:
     """ Finds and return a solution if the first queen is placed on the given
     position
     """
@@ -102,7 +99,7 @@ def findSolution(new_queen, N, rank, solution, solutions_set):
     solution.append(new_queen)
 
     if (rank >= N):
-        solutions_set.append(solution.copy())
+        solutions_set.append(solution)
         return
 
     for file in range(N):
