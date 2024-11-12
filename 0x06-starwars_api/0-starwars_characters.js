@@ -2,8 +2,8 @@
 
 const request = require('request');
 
-film_id = process.argv[2];
-url = 'https://swapi-api.alx-tools.com/api/films/' + film_id;
+const filmId = process.argv[2];
+const url = 'https://swapi-api.alx-tools.com/api/films/' + filmId;
 
 process.on('unhandledRejection', (error) => {
   console.error('Unhandled promise rejection: ', error);
@@ -11,21 +11,21 @@ process.on('unhandledRejection', (error) => {
 });
 
 request(url, (error, response, body) => {
-  if (response.statusCode == 200) {
-    results = JSON.parse(body);
-    characters = results.characters;
-    characters.forEach(get_character);
+  if (response.statusCode === 200) {
+    const results = JSON.parse(body);
+    const characters = results.characters;
+    characters.forEach(getCharacter);
   } else if (error) {
     console.log(error);
   }
 });
 
-function get_character(url) {
+function getCharacter (url) {
   request(url, (error, response, body) => {
-    if (response.statusCode == 200) {
-      character = JSON.parse(body)
-      ch_name = character.name;
-      console.log(ch_name);
+    if (response.statusCode === 200) {
+      const character = JSON.parse(body);
+      const charName = character.name;
+      console.log(charName);
     } else if (error) {
       console.log(error);
     }
