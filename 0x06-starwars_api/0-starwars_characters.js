@@ -15,7 +15,7 @@ async function getCharacter (url) {
     const character = JSON.parse(response.body);
     const charName = character.name;
     console.log(charName);
-  };
+  }
 }
 
 async function getFilmCharacters (url) {
@@ -28,6 +28,6 @@ async function getFilmCharacters (url) {
       await getCharacter(characterUrl);
     }
   }
-};
+}
 
 getFilmCharacters(url);
