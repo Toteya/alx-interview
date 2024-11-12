@@ -1,14 +1,10 @@
 #!/usr/bin/node
+/* Retrieves character information from the StarWars API
+*/
 
 const request = require('request');
-
 const filmId = process.argv[2];
 const url = 'https://swapi-api.alx-tools.com/api/films/' + filmId;
-
-process.on('unhandledRejection', (error) => {
-  console.error('Unhandled promise rejection: ', error);
-  // Or some other error logging process
-});
 
 request(url, (error, response, body) => {
   if (response.statusCode === 200) {
