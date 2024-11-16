@@ -7,33 +7,33 @@ const request = require('request');
 const filmId = process.argv[2];
 const url = 'https://swapi-api.alx-tools.com/api/films/' + filmId;
 
-function makePromise (func) {
-  return (...args) => {
-    return new Promise((resolve, reject) => {
-      func(...args, (error, response, body) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve({ response, body });
-        }
-      });
+function promiseRequest (url) {
+  return new Promise((resolve, reject) => {
+    request(url, (error, response, body) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({ response, body });
+      }
     });
-  };
-}
-
-const promiseRequest = makePromise(request);
+  });
+};
 
 async function getCharacter (url) {
-  const { response, body } = await promiseRequest(url);
-  if (response.statusCode === 200) {
-    const character = JSON.parse(body);
-    const charName = character.name;
-    console.log(charName);
-  }
+  await promiseRequest(url)
+  .then( ({response, body}) => {
+    if (response.statusCode === 200) {
+      const character = JSON.parse(body);
+      const charName = character.name;
+      console.log(url)
+      console.log(charName);
+    }
+  })
+  .catch( error => console.log(error))
 }
 
-async function getFilmCharacters (url) {
-  const { response, body } = await promiseRequest(url);
+promiseRequest(url)
+.then( async ({response, body}) => {
   if (response.statusCode === 200) {
     const results = JSON.parse(body);
     const characters = results.characters;
@@ -41,6 +41,5 @@ async function getFilmCharacters (url) {
       await getCharacter(characterUrl);
     }
   }
-}
-
-getFilmCharacters(url);
+})
+.catch( error => console.log(error))
