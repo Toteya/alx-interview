@@ -17,23 +17,23 @@ function promiseRequest (url) {
       }
     });
   });
-};
+}
 
 async function getCharacter (url) {
   await promiseRequest(url)
-  .then( ({response, body}) => {
-    if (response.statusCode === 200) {
-      const character = JSON.parse(body);
-      const charName = character.name;
-      console.log(url)
-      console.log(charName);
-    }
-  })
-  .catch( error => console.log(error))
+    .then(( {response, body} ) => {
+      if (response.statusCode === 200) {
+        const character = JSON.parse(body);
+        const charName = character.name;
+        console.log(url)
+        console.log(charName);
+      }
+    })
+  .catch( error => console.log(error));
 }
 
 promiseRequest(url)
-.then( async ({response, body}) => {
+.then(async ({ response, body }) => {
   if (response.statusCode === 200) {
     const results = JSON.parse(body);
     const characters = results.characters;
@@ -42,4 +42,4 @@ promiseRequest(url)
     }
   }
 })
-.catch( error => console.log(error))
+.catch(error => console.log(error));
