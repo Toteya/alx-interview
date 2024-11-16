@@ -21,25 +21,25 @@ function promiseRequest (url) {
 
 async function getCharacter (url) {
   await promiseRequest(url)
-    .then(( {response, body} ) => {
+    .then(({ response, body }) => {
       if (response.statusCode === 200) {
         const character = JSON.parse(body);
         const charName = character.name;
-        console.log(url)
+        console.log(url);
         console.log(charName);
       }
     })
-  .catch( error => console.log(error));
+    .catch(error => console.log(error));
 }
 
 promiseRequest(url)
-.then(async ({ response, body }) => {
-  if (response.statusCode === 200) {
-    const results = JSON.parse(body);
-    const characters = results.characters;
-    for (const characterUrl of characters) {
-      await getCharacter(characterUrl);
+  .then(async ({ response, body }) => {
+    if (response.statusCode === 200) {
+      const results = JSON.parse(body);
+      const characters = results.characters;
+      for (const characterUrl of characters) {
+        await getCharacter(characterUrl);
+      }
     }
-  }
-})
-.catch(error => console.log(error));
+  })
+  .catch(error => console.log(error));
