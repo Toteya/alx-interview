@@ -25,7 +25,6 @@ async function getCharacter (url) {
       if (response.statusCode === 200) {
         const character = JSON.parse(body);
         const charName = character.name;
-        console.log(url);
         console.log(charName);
       }
     })
