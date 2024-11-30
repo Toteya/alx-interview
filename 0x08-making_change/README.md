@@ -1,7 +1,7 @@
 # 0x08. Making Change
 
 ## Concepts and Resources:
-* [Mock Technical Interview]()
+* [Mock Technical Interview](https://intranet.alxswe.com/rltoken/ktLaKIVRkq_-byFO-_-aGg)
 
 Greedy Algorithms:
 * Understanding how greedy algorithms work and why they are suitable for the coin change problem.
