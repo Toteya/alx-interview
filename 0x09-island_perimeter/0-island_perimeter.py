@@ -12,36 +12,17 @@ def island_perimeter(grid):
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             if grid[i][j]:
-                perimeter = update_perimeter(perimeter, grid, i, j, True)
+                if j == 0 or not grid[i][j - 1]:
+                    perimeter += 1
+                if i == 0 or not grid[i - 1][j]:
+                    perimeter += 1
+                if i + 1 >= len(grid):
+                    perimeter += 1
+                if j + 1 >= len(grid[i]):
+                    perimeter += 1
             else:
-                perimeter = update_perimeter(perimeter, grid, i, j, False)
-    return perimeter
-
-
-def update_perimeter(perimeter, grid, i, j, on_land):
-    """ Updates the perimeter depending on the given cells (coordinates)
-    """
-    if on_land:
-        try:
-            if not grid[i][j - 1]:
-                perimeter += 1
-        except IndexError:
-            perimeter += 1
-        try:
-            if not grid[i - 1][j]:
-                perimeter += 1
-        except IndexError:
-            perimeter += 1
-
-    else:
-        try:
-            if grid[i][j - 1]:
-                perimeter += 1
-        except IndexError:
-            pass
-        try:
-            if grid[i - 1][j]:
-                perimeter += 1
-        except IndexError:
-            pass
+                if j != 0 and grid[i][j - 1]:
+                    perimeter += 1
+                if i != 0 and grid[i - 1][j]:
+                    perimeter += 1
     return perimeter
