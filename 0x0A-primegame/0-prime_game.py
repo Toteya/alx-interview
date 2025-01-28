@@ -7,8 +7,10 @@
 def isWinner(x, nums):
     """ Determines and returns the player that has won the most rounds
     """
-    if x < 1 or x > 1000:
+    if x < 1:
         return None
+    if x > 1000:
+        x = 1000
 
     ben_victories = 0
     maria_victories = 0
