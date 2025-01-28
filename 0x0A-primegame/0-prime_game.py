@@ -13,6 +13,8 @@ def isWinner(x, nums):
     ben_victories = 0
     maria_victories = 0
     for num in nums:
+        if num > 1000:
+            break
         primes = sieve_of_eratosthenes(num)
         maria_wins = False
         for _ in range(x):
