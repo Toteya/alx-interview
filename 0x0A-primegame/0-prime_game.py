@@ -9,13 +9,13 @@ def isWinner(x, nums):
     """
     if x < 1:
         return None
-    if x > 10000:
+    if x > 1000:
         x = 1000
 
     ben_victories = 0
     maria_victories = 0
     for num in nums:
-        if num > 10000:
+        if num > 1000:
             break
         primes = sieve_of_eratosthenes(num)
         maria_wins = False
